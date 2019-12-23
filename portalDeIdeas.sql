@@ -24,13 +24,13 @@ USE `portalDeIdeas` ;
 -- Table `portalDeIdeas`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `portalDeIdeas`.`users` (
-  `user_id` VARCHAR(36) NOT NULL,
+  `user_id` CHAR(36) NOT NULL,
   `email` TEXT NOT NULL,
   `password` TEXT NOT NULL,
   `name` VARCHAR(20) NOT NULL,
   `surname` VARCHAR(45) NULL DEFAULT NULL,
   `avatar_url` TEXT NULL DEFAULT NULL,
-  `role` VARCHAR(3) NOT NULL,
+  `role` CHAR(3) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL,
   `deleted_at` TIMESTAMP NULL DEFAULT NULL,
@@ -43,15 +43,15 @@ DEFAULT CHARACTER SET = latin1;
 -- Table `portalDeIdeas`.`projects`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `portalDeIdeas`.`projects` (
-  `project_id` VARCHAR(36) NOT NULL,
-  `user_id` VARCHAR(36) NOT NULL,
+  `project_id` CHAR(36) NOT NULL,
+  `user_id` CHAR(36) NOT NULL,
   `tltle` VARCHAR(45) NOT NULL,
   `description` VARCHAR(255) NOT NULL,
   `details` TEXT NOT NULL,
   `target` VARCHAR(20) NOT NULL,
   `sector` VARCHAR(15) NOT NULL,
   `theme` VARCHAR(15) NOT NULL,
-  `complexity` INT(11) NOT NULL,
+  `complexity` INT(1) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL,
   `deleted_at` TIMESTAMP NULL DEFAULT NULL,
@@ -68,9 +68,9 @@ DEFAULT CHARACTER SET = latin1;
 -- Table `portalDeIdeas`.`documents`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `portalDeIdeas`.`documents` (
-  `doc_id` VARCHAR(36) NOT NULL,
-  `project_id` VARCHAR(36) NOT NULL,
-  `user_id` VARCHAR(36) NOT NULL,
+  `doc_id` CHAR(36) NOT NULL,
+  `project_id` CHAR(36) NOT NULL,
+  `user_id` CHAR(36) NOT NULL,
   `title` VARCHAR(45) NOT NULL,
   `file_url` TEXT NOT NULL,
   `uploaded_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
