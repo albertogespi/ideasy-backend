@@ -1,0 +1,23 @@
+{
+  "name": "portaldeideas",
+  "version": "1.0.0",
+  "description": "https://consejo-eps.uco.es/aulasoftwarelibre/actividades/idea/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/aitamuri/portaldeideas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/aitamuri/portaldeideas/issues"
+  },
+  "homepage": "https://gitlab.com/aitamuri/portaldeideas#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
