@@ -1,0 +1,44 @@
+COMO CREAR EL BACKEND DE CERO
+
+1- INDEX.JS PRINCIPAL
+	--> 1 	'use strict'
+		const webserver = require('./app/webserver');
+
+	--> 2 const port = 8000;
+	
+	--> 3 funcion async de initApp();
+
+	--> 4 initApp();
+
+2- INDEX.JS DEL WEBSERVER
+	--> 1 	'use strict'
+		const express = require('express') <-- pa usar el express
+	
+	--> 2 	const app = express();
+		const port = 8000;
+
+	--> 3	app.use(express.json());
+
+	--> 4 	app.get('/', (req, res) => res.send('Bienvenidos')); <-- mensaje inicial.
+		si ponemos mas get por ejemplo app.get('/hola') accedemos a mas 'pestañas' o ventanas.
+
+	--> 5	const {routerQueImportemos} = require('./routes/index');
+		app.use('/api', routerQueImportemos);
+
+	--> 6	let server = null
+		funcion async listen
+
+	--> 7 	module.exports = {listen}; <-- exportamos la funcion listen para usarla en el index principal.
+
+3- ARCHIVO ROUTER
+	--> 1 	'use strict'
+		const express = require('express') <-- pa usar el express
+
+	--> 2 	const router = express.Router();
+
+	--> 3 	router.get('/cuenta', (req, res, next) => res.send('Bienvenidos'));
+
+	--> 4 	module.exports = router;
+
+	--> HAY QUE importarlo en:
+		- index de routers
