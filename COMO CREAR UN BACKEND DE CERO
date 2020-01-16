@@ -42,3 +42,67 @@ COMO CREAR EL BACKEND DE CERO
 
 	--> HAY QUE importarlo en:
 		- index de routers
+
+4- ARCHIVO CONTROLLER
+	--> 1 	"use strict";
+
+		//librerias que necesitemos. Por ejemplo:
+		const joi = require("@hapi/joi");
+		const bcrypt = require("bcrypt");
+		const uuidV4 = require("uuid/v4");
+		const sgMail = require("@sendgrid/mail");
+		const jwt = require("jsonwebtoken");
+		const mysql = require("mysql2/promise");
+
+	--> 2	importar base de datos si la necesitamos
+
+	--> 3	crear la función (asincrona) que necesitemos:
+		async function nombreFuncion(req, res, next){}
+
+	--> 4 	exportar la función: module.exports = nombreFunción
+
+5- ARCHIVO MYSQL-POOL.JS PARA ACCEDER A LA BASE DE DATOS
+
+	--> 1	"use strict";
+		//librería necesaria para usar mysql:
+		const mysql = require("mysql2/promise");
+
+	--> 2	guardamos las claves en el archivo .env.
+		dichas claves luego hay que 'importarlas' para usarlas. Son estas:
+		const {
+			MYSQL_HOST,
+			MYSQL_USER,
+			MYSQL_PASSWORD,
+			MYSQL_PORT,
+			MYSQL_DATABASE,
+		} = process.env;
+
+	--> 3	let pool = null;
+		async function connect()
+		async function getConnection()
+
+	--> 4	module.exports = {
+			connect,
+			getConnection,
+		};
+
+PLANTILLA ARCHIVO .ENV
+
+# para tenerlo como plantilla
+MYSQL_HOST=
+MYSQL_USER=
+MYSQL_DATABASE=
+MYSQL_PASSWORD=
+MYSQL_PORT=
+
+SENDGRID_API_KEY=
+
+#JWT CONFIG
+AUTH_ACCESS_TOKEN_TTL=
+AUTH_JWT_SECRET=
+
+#CLOUDINARY CONFIG
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+		
