@@ -19,5 +19,12 @@
   "homepage": "https://gitlab.com/aitamuri/portaldeideas#readme",
   "devDependencies": {
     "express": "^4.17.1"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "dotenv": "^8.2.0",
+    "mysql2": "^2.1.0",
+    "sendgrid": "^5.2.3",
+    "uuid": "^3.3.3"
   }
 }

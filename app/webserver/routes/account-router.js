@@ -5,7 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 const createAccount = require("../controllers/account/create-account-controller");
-app.post("/accounts", createAccount);
+router.post("/accounts", createAccount);
 
 router.get("/cuenta", (req, res, next) => res.send("Pestaña cuenta"));
 
