@@ -25,7 +25,7 @@ async function connect() {
 		password: MYSQL_PASSWORD,
 		database: MYSQL_DATABASE,
 		port: MYSQL_PORT,
-		timexone: "Z",
+		timezone: "Z",
 	};
 
 	//1 create pool using config

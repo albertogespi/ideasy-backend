@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `portalDeIdeas`.`users` (
   `user_id` CHAR(36) NOT NULL,
   `email` TEXT NOT NULL,
   `password` TEXT NOT NULL,
-  `name` VARCHAR(20) NOT NULL,
+  `name` VARCHAR(25) NOT NULL,
   `surname` VARCHAR(45) NULL DEFAULT NULL,
   `avatar_url` TEXT NULL DEFAULT NULL,
   `role` CHAR(3) NOT NULL,

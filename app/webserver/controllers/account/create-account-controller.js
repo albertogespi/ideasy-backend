@@ -9,6 +9,8 @@ const sg = require("@sendgrid/mail");
 //MYSQL POOL CONNECTION
 const mysqlPool = require("../../../database/mysql-pool");
 
+sg.setApiKey(process.env.SENDGRID_API_KEY);
+
 async function createAccount(req, res, next) {
 	const accountData = { ...req.body };
 
@@ -30,59 +32,76 @@ async function createAccount(req, res, next) {
 	const userId = uuid();
 
 	//encrypt pw
-    const securePassword = await bcript.hash(accountData.password, 10);
-    
-    //save in ddbb
-    const connection;
-    try{
-        connection = await mysqlPool.getConnection();
+	const securePassword = await bcript.hash(accountData.password, 10);
 
-        await connection.query("INSERT INTO users SET ?", {
-            id: userId,
-            email: accountData.email,
-            password: securePassword,
-            created_at: createdAt
-        });
+	//save in ddbb
+	let connection;
+	try {
+		connection = await mysqlPool.getConnection();
 
-        connection.release();
+		await connection.query("INSERT INTO users SET ?", {
+			user_id: userId,
+			email: accountData.email,
+			password: securePassword,
+			name: accountData.name,
+			surname: accountData.surname,
+			role: accountData.role,
+			created_at: createdAt,
+		});
 
-        res.status(201).send(); //everything ok
+		connection.release();
 
-        //send an email
-        await sendWelcomeEmail(accountData.email);
-    } catch(e){
-        if(connection){
-            connection.release();
-        }
+		res.status(201).send(); //everything ok
 
-        if(e.code = "ER_DUP_KEY"){
-            return res.status(409).send();
-        }
+		//send an email
+		try {
+			await sendWelcomeEmail(accountData.email, accountData.name);
+		} catch (e) {
+			throw e;
+		}
+	} catch (e) {
+		if (connection) {
+			connection.release();
+		}
 
-        return res.status(500).send();
-    }
+		if ((e.code = "ER_DUP_KEY")) {
+			console.log(e);
+			return res.status(409).send();
+		}
+
+		return res.status(500).send();
+	}
 }
 
-function validateSchema(data){
-    const schema = joi.object({
-        email: joi.string().email().required(),
-        password: joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required()
-    });
+function validateSchema(data) {
+	const schema = joi.object({
+		email: joi
+			.string()
+			.email()
+			.required(),
+		name: joi.string().required(),
+		surname: joi.string(),
+		password: joi
+			.string()
+			.regex(/^[a-zA-Z0-9]{3,30}$/)
+			.required(),
+		role: joi.string().required(),
+	});
 
-    joi.assert(data, schema); //data != schema --> error
+	joi.assert(data, schema); //data != schema --> error
 }
 
-function sendWelcomeEmail(email){
-    const username = email.split("@")[0];
+async function sendWelcomeEmail(email, name) {
+	const username = `${name}`;
 
-    const message = {
-        to: email,
-        from: "portaldeideas@yopmail.com",
-        subject: "Bienvenido :)",
-        text: `Querido/a ${username}, ¡te damos la bienvenida a PortalDeIdeas! Gracias por registrarte!`,
-    }
-    
-    await sg.send(msg);
+	const message = {
+		to: email,
+		from: "portaldeideas@yopmail.com",
+		subject: "Bienvenido :)",
+		text: `Querido/a ${username}, ¡te damos la bienvenida a PortalDeIdeas! Gracias por registrarte!`,
+	};
+
+	await sg.send(message);
 }
 
 module.exports = createAccount;
