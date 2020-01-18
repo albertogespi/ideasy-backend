@@ -1,16 +1,17 @@
-'use strict';
+"use strict";
 
-const express = require('express');
+const express = require("express");
 
 const app = express();
 
 app.use(express.json());
 
-const { accountRouter } = require('./routes/index');
+const { accountRouter, userRouter } = require("./routes");
 
-app.get('/', (req, res) => res.send('Bienvenidos a nuestro portal de ideas!'));
+app.get("/", (req, res) => res.send("Bienvenidos a nuestro portal de ideas!"));
 
-app.use('/api', accountRouter);
+app.use("/api", accountRouter);
+app.use("/api", userRouter);
 
 let server = null;
 
