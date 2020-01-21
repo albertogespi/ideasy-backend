@@ -27,4 +27,5 @@ async function listen(port) {
     throw e;
   }
 }
+
 module.exports = { listen };
