@@ -10,6 +10,7 @@ async function validateSchema(payload) {
       .required(),
     surname: Joi.string()
       .max(45)
+      .allow(null)
       .optional(),
     userId: Joi.string()
       .guid({
