@@ -1,9 +1,9 @@
 "use strict";
 
 const express = require("express");
-
 const app = express();
-
+const cors = require("cors");
+app.use(cors()); //esto permite la conexión frontend-backend, en teoría
 app.use(express.json());
 
 const { accountRouter, userRouter } = require("./routes");
