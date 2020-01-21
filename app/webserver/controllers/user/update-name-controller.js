@@ -41,12 +41,15 @@ async function updateName(req, res, next) {
       .substring(0, 19);
 
     const sqlUpdateName = `UPDATE users
-    SET name = ?, surname = ?
+    SET name = ?, 
+    surname = ?, 
+    updated_at = ?
     WHERE user_id = ?`;
 
     await connection.query(sqlUpdateName, [
       userData.name,
       userData.surname,
+      now,
       userId
     ]);
     connection.release();

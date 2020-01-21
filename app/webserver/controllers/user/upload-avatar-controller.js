@@ -39,11 +39,18 @@ async function uploadAvatar(req, res, next) {
 
         let connection;
         try {
-          const sqlQuery = `UPDATE users 
-        SET avatar_url = ? 
-        WHERE user_id = ?`;
           connection = await mysqlPool.getConnection();
-          connection.execute(sqlQuery, [secureUrl, userId]);
+          const now = new Date()
+            .toISOString()
+            .replace("T", " ")
+            .substring(0, 19);
+
+          const sqlQuery = `UPDATE users 
+          SET avatar_url = ?,
+          updated_at = ?
+          WHERE user_id = ?`;
+
+          connection.execute(sqlQuery, [secureUrl, now, userId]);
           connection.release();
 
           res.header("Location", secureUrl);
