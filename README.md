@@ -2,7 +2,7 @@
 
 https://consejo-eps.uco.es/aulasoftwarelibre/actividades/idea/
 
-Una cosa. Cambié el tamaño del campo name de la base de datos de 20 a 25 porque hice un simulacro y se me quedó corto. Es indiferente la verdad. Si quereis ponerlo a 20 otra vez, da igual.
+!!!!! YA CREÉ EL ARCHIVO DE ACCOUNT EXISTENCE. Falta que tu lo uses Alberto. Puedes mirar el mío pa ver como lo dejé, ya me dirás si lo ves útil, no supe muy bien donde guardar ese archivo .js porque no es un controller, igual deberíamos hacer una carpeta afuera llamada "utilities" o algo así para poner los archivos comunes (??) no sé.
 
 para desplegar
 https://devcenter.heroku.com/categories/nodejs-support
