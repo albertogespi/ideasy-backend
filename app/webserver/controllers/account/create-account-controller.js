@@ -13,6 +13,9 @@ const sg = require("@sendgrid/mail");
 //MYSQL POOL CONNECTION
 const mysqlPool = require("../../../database/mysql-pool");
 
+//OTHER FUNCTIONS
+const checkExistenceAccount = require("../account/check-account-existence");
+
 sg.setApiKey(process.env.SENDGRID_API_KEY);
 
 async function createAccount(req, res, next) {
@@ -23,6 +26,20 @@ async function createAccount(req, res, next) {
 		await validateSchema(accountData);
 	} catch (e) {
 		return res.status(400).send(e);
+	}
+
+	//check email existance in ddbb
+	try {
+		const data = await checkExistenceAccount(accountData.email);
+
+		if (data.length !== 0) {
+			return res
+				.status(401)
+				.send("Email no disponible: usuario ya existente con dicho email.");
+		}
+	} catch (e) {
+		console.error(e);
+		return res.status(500).send(); //server connection failed
 	}
 
 	//date of creation
@@ -144,7 +161,7 @@ async function sendWelcomeEmail(accountData) {
 		    </section>
 		</main>
 		<footer style="background-color: #333333; color: #f4f6f6; text-align:center; padding: 15px">
-		    <p>·· Accede a la página: <a href="https://google.es/" style="color: #117a65">portaldeideas.es</a> ··</p>
+		    <p style="text-align:center">·· Accede a la página: <a href="https://google.es/" style="color: #117a65">portaldeideas.es</a> ··</p>
 		</footer>
 	</body>
 </html>`,
