@@ -1,8 +1,9 @@
 "use strict";
 
 require("dotenv").config();
-const webServer = require("./app/webserver");
+
 const mysqlPool = require("./app/database/mysql-pool");
+const webServer = require("./app/webserver");
 
 const port = process.env.PORT;
 

@@ -6,11 +6,12 @@ const cors = require("cors");
 app.use(cors()); //esto permite la conexión frontend-backend, en teoría
 app.use(express.json());
 
-const { accountRouter, userRouter } = require("./routes");
+const { accountRouter, authRouter, userRouter } = require("./routes");
 
 app.get("/", (req, res) => res.send("Bienvenidos a nuestro portal de ideas!"));
 
 app.use("/api", accountRouter);
+app.use("/api", authRouter);
 app.use("/api", userRouter);
 
 let server = null;
