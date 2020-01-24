@@ -3,7 +3,7 @@
 const bcrypt = require("bcrypt");
 const Joi = require("@hapi/joi");
 const jwt = require("jsonwebtoken");
-const mysqlPool = require("../../../database/mysql-pool");
+//const mysqlPool = require("../../../database/mysql-pool");
 
 const checkExistenceAccount = require("../account/check-account-existence");
 
@@ -29,12 +29,14 @@ async function login(req, res, next) {
   }
 
   try {
-    const userData = await checkExistenceAccount(accountData.email);
-    if (userData.length !== 1) {
+    const data = await checkExistenceAccount(accountData.email);
+    if (data.length !== 1) {
       return res
         .status(401)
         .send("Usuario no autorizado: el email no está registrado");
     }
+
+    const user = data[0];
 
     try {
       const isPasswordOk = await bcrypt.compare(
@@ -45,7 +47,7 @@ async function login(req, res, next) {
         return res.status(401).send("Password incorrecta");
       }
     } catch (e) {
-      res.status(500);
+      res.status(500).send("error al comprobar la contraseña");
     }
 
     const payloadJwt = {
@@ -65,7 +67,7 @@ async function login(req, res, next) {
     });
   } catch (e) {
     console.error(e);
-    return res.status(500).send();
+    return res.status(500).send("error durante el login");
   }
 }
 
