@@ -54,7 +54,7 @@ async function uploadAvatar(req, res, next) {
           connection.release();
 
           res.header("Location", secureUrl);
-          return res.status(201).send();
+          return res.status(201).send("Foto de perfil actualizada");
         } catch (e) {
           if (connection) {
             connection.release();
