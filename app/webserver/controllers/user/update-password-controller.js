@@ -7,6 +7,11 @@ async function validateSchema(payload) {
   const schema = Joi.object({
     password: Joi.string()
       .regex(/^[a-zA-Z0-9]{3,30}$/)
+      .required(),
+    userId: Joi.string()
+      .guid({
+        version: ["uuidv4"]
+      })
       .required()
   });
 
@@ -15,10 +20,10 @@ async function validateSchema(payload) {
 
 async function updatePassword(req, res, next) {
   const { userId } = req.claims;
-  const { password } = req.body;
+  const data = { ...req.body, userId };
 
   try {
-    await validateSchema(password);
+    await validateSchema(data);
   } catch (e) {
     console.error(e);
     return res.status(400).send(e);
@@ -37,7 +42,7 @@ async function updatePassword(req, res, next) {
     updated_at = ?
     WHERE user_id = ?`;
 
-    await connection.query(sqlUpdatePassword, [password, now, userId]);
+    await connection.query(sqlUpdatePassword, [data.password, now, userId]);
     connection.release();
     return res.status(201).send("Password cambiada");
   } catch (e) {
