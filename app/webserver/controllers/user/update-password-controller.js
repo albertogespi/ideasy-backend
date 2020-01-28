@@ -2,6 +2,7 @@
 
 const mysqlPool = require("../../../database/mysql-pool");
 const Joi = require("@hapi/joi");
+const bcrypt = require("bcrypt");
 
 async function validateSchema(payload) {
   const schema = Joi.object({
@@ -37,14 +38,16 @@ async function updatePassword(req, res, next) {
       .replace("T", " ")
       .substring(0, 19);
 
+    const securePassword = await bcrypt.hash(data.password, 10);
+
     const sqlUpdatePassword = `UPDATE users
     SET password = ?, 
     updated_at = ?
     WHERE user_id = ?`;
 
-    await connection.query(sqlUpdatePassword, [data.password, now, userId]);
+    await connection.query(sqlUpdatePassword, [securePassword, now, userId]);
     connection.release();
-    return res.status(201).send("Password cambiada");
+    return res.status(200).send("Password cambiada");
   } catch (e) {
     if (connection) {
       connection.release();

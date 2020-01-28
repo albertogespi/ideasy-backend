@@ -54,7 +54,7 @@ async function updateName(req, res, next) {
       userId
     ]);
     connection.release();
-    return res.status(204).send();
+    return res.status(200).send("nombre cambiado");
   } catch (e) {
     if (connection) {
       connection.release();
