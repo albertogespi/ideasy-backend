@@ -6,3 +6,5 @@ https://consejo-eps.uco.es/aulasoftwarelibre/actividades/idea/
 
 para desplegar
 https://devcenter.heroku.com/categories/nodejs-support
+
+input type="file" para subir archivos al backend

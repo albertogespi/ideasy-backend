@@ -10,7 +10,7 @@ async function checkAccount(req, res, next) {
 
   const [prefix, token] = authorization.split(" ");
   if (prefix !== "Bearer" || !token) {
-    return res.status(401).send("token expirado");
+    return res.status(401).send("token no válido");
   }
 
   try {

@@ -45,12 +45,10 @@ DEFAULT CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS `portalDeIdeas`.`projects` (
   `project_id` CHAR(36) NOT NULL,
   `user_id` CHAR(36) NOT NULL,
-  `tltle` VARCHAR(45) NOT NULL,
+  `title` VARCHAR(45) NOT NULL,
   `description` VARCHAR(255) NOT NULL,
   `details` TEXT NOT NULL,
-  `target` VARCHAR(20) NOT NULL,
   `sector` VARCHAR(15) NOT NULL,
-  `theme` VARCHAR(15) NOT NULL,
   `complexity` INT(1) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL,
