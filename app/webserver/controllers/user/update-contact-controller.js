@@ -5,12 +5,10 @@ const Joi = require("@hapi/joi");
 
 async function validateSchema(payload) {
   const schema = Joi.object({
-    name: Joi.string()
-      .max(25)
+    contactEmail: Joi.string()
+      .email()
       .required(),
-    surname: Joi.string()
-      .max(45)
-      .allow(null),
+    contactWeb: Joi.string().allow(null),
     userId: Joi.string()
       .guid({
         version: ["uuidv4"]
@@ -21,18 +19,18 @@ async function validateSchema(payload) {
   Joi.assert(payload, schema);
 }
 
-async function updateName(req, res, next) {
+async function updateContact(req, res, next) {
   const { userId } = req.claims;
   const userData = { ...req.body, userId };
 
   try {
     await validateSchema(userData);
   } catch (e) {
-    console.error(e);
-    return res.status(400).send(e);
+    return res.status(400).send();
   }
 
   let connection;
+
   try {
     connection = await mysqlPool.getConnection();
     const now = new Date()
@@ -40,20 +38,21 @@ async function updateName(req, res, next) {
       .replace("T", " ")
       .substring(0, 19);
 
-    const sqlUpdateName = `UPDATE users
-    SET name = ?, 
-    surname = ?, 
+    const sqlUpdateContact = `UPDATE users
+    SET contact_email = ?, 
+    contact_web = ?, 
     updated_at = ?
     WHERE user_id = ?`;
 
-    await connection.query(sqlUpdateName, [
-      userData.name,
-      userData.surname,
+    await connection.query(sqlUpdateContact, [
+      userData.contactEmail,
+      userData.contactWeb,
       now,
       userId
     ]);
+
     connection.release();
-    return res.status(200).send("nombre cambiado");
+    return res.status(200).send("datos de contacto modificados");
   } catch (e) {
     if (connection) {
       connection.release();
@@ -65,4 +64,4 @@ async function updateName(req, res, next) {
   }
 }
 
-module.exports = updateName;
+module.exports = updateContact;

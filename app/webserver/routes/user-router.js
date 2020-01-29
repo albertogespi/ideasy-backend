@@ -4,6 +4,7 @@ const express = require("express");
 const multer = require("multer");
 const checkAccount = require("../controllers/account/check-account-controller");
 const uploadAvatar = require("../controllers/user/upload-avatar-controller");
+const updateContact = require("../controllers/user/update-contact-controller");
 const updateName = require("../controllers/user/update-name-controller");
 const updatePassword = require("../controllers/user/update-password-controller");
 
@@ -16,6 +17,8 @@ router.post(
   upload.single("avatar"),
   uploadAvatar
 );
+
+router.post("/users/contact", checkAccount, updateContact);
 
 router.post("/users/name", checkAccount, updateName);
 
