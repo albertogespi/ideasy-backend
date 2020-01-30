@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 async function checkAccount(req, res, next) {
   const { authorization } = req.headers;
   if (!authorization) {
-    return res.status(401).send();
+    return res.status(401).send("no autorizado");
   }
 
-  const [prefix, token] = authorization.split(' ');
-  if (prefix !== 'Bearer' || !token) {
-    return res.status(401).send();
+  const [prefix, token] = authorization.split(" ");
+  if (prefix !== "Bearer" || !token) {
+    return res.status(401).send("token no válido");
   }
 
   try {
