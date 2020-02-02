@@ -2,7 +2,9 @@
 
 const express = require("express");
 const multer = require("multer");
+
 const checkAccount = require("../controllers/account/check-account-controller");
+const getUser = require("../controllers/user/get-user");
 const uploadAvatar = require("../controllers/user/upload-avatar-controller");
 const updateContact = require("../controllers/user/update-contact-controller");
 const updateName = require("../controllers/user/update-name-controller");
@@ -10,6 +12,8 @@ const updatePassword = require("../controllers/user/update-password-controller")
 
 const upload = multer();
 const router = express.Router();
+
+router.get("/users", checkAccount, getUser);
 
 router.post(
   "/users/avatar",
