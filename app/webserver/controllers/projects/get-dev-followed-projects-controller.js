@@ -3,7 +3,7 @@
 //MYSQL POOL CONNECTION
 const mysqlPool = require("../../../database/mysql-pool");
 
-async function getUserProjects(req, res, next) {
+async function getFollowedProjects(req, res, next) {
 	const { userId } = req.params;
 	const filters = req.query;
 
@@ -12,7 +12,7 @@ async function getUserProjects(req, res, next) {
 		connection = await mysqlPool.getConnection();
 
 		//query to obtain the data
-		let sqlQuery = `SELECT * FROM projectsAndFollowers WHERE user_id = "${userId}"`;
+		let sqlQuery = `SELECT projects.* FROM projects INNER JOIN users_projects ON projects.project_id = users_projects.project_id WHERE users_projects.user_id = "${userId}"`;
 
 		if (Object.keys(filters).length !== 0) {
 			for (const filter in filters) {
@@ -34,4 +34,4 @@ async function getUserProjects(req, res, next) {
 	}
 }
 
-module.exports = getUserProjects;
+module.exports = getFollowedProjects;
