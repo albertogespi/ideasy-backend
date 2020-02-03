@@ -23,9 +23,9 @@ async function uploadDocument(req, res, next) {
     });
   }
 
-  if (role !== "dev") {
-    return res.status(403).send();
-  }
+  // if (role !== "dev") {
+  //   return res.status(403).send();
+  // }
 
   cloudinary.uploader
     .upload_stream(
@@ -53,7 +53,7 @@ async function uploadDocument(req, res, next) {
           const sqlQuery = `INSERT INTO documents 
           SET doc_id = ?, project_id = ?, 
           user_id = ?, title = ?, 
-          file_url = ?, updated_at = ?`;
+          file_url = ?, uploaded_at = ?`;
 
           connection.query(sqlQuery, [
             docId,
