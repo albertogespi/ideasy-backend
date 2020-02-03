@@ -10,7 +10,8 @@ const {
   accountRouter,
   authRouter,
   documentRouter,
-  userRouter
+  userRouter,
+  homeRouter
 } = require("./routes");
 
 app.get("/", (req, res) => res.send("Bienvenidos a nuestro portal de ideas!"));
@@ -19,6 +20,7 @@ app.use("/api", accountRouter);
 app.use("/api", authRouter);
 app.use("/api", documentRouter);
 app.use("/api", userRouter);
+app.use("/api", homeRouter);
 
 let server = null;
 
