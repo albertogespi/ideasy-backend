@@ -30,7 +30,7 @@ async function uploadDocument(req, res, next) {
   cloudinary.uploader
     .upload_stream(
       {
-        resource_type: "document",
+        resource_type: "raw",
         public_id: userId,
         format: "pdf"
       },
