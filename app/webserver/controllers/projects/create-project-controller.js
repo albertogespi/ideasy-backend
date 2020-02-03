@@ -2,7 +2,7 @@
 
 const mysqlPool = require("../../../database/mysql-pool");
 const Joi = require("@hapi/joi");
-const uuidV4 = require("uuid/V4");
+const uuidV4 = require("uuid/v4");
 
 async function validate(payload) {
   const schema = Joi.object({
