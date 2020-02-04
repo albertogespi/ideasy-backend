@@ -21,7 +21,7 @@ async function getUser(req, res, next) {
     return res.status(200).send(user);
   } catch (e) {
     console.error(e);
-    return res.status(500).send;
+    return res.status(500).send();
   }
 }
 
