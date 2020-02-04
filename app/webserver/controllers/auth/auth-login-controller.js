@@ -37,7 +37,7 @@ async function login(req, res, next) {
     }
 
     const user = data[0];
-
+    console.log(user);
     try {
       const isPasswordOk = await bcrypt.compare(
         accountData.password,

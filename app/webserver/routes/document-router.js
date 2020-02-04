@@ -21,6 +21,7 @@ router.post(
 
 router.get("/documents/user/:userId", checkAccount, getRating);
 router.get("/documents/projects/:projectId", checkAccount, getDocuments);
+router.get("/documents/user/:userId", checkAccount, getRating);
 router.post("/documents/:docId", checkAccount, uploadRating);
 
 module.exports = router;
