@@ -6,6 +6,21 @@ const cors = require("cors");
 app.use(cors()); //esto permite la conexión frontend-backend, en teoría
 app.use(express.json());
 
+//este middleware permite al frontend acceder al header location según dijo Yago
+app.use((req, res, next) => {
+  const accessControlAllowHeaders = ["Location"];
+
+  res.header(
+    "Access-Control-Allow-Headers",
+    accessControlAllowHeaders.join(",")
+  );
+  res.header(
+    "Access-Control-Expose-Headers",
+    accessControlAllowHeaders.join(",")
+  );
+  next();
+});
+
 const {
   accountRouter,
   documentRouter,
