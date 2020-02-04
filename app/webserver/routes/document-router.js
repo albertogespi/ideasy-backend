@@ -19,8 +19,8 @@ router.post(
   uploadDocument
 );
 
+router.get("/documents/user/:userId", checkAccount, getRating);
 router.get("/documents/projects/:projectId", checkAccount, getDocuments);
 router.post("/documents/:docId", checkAccount, uploadRating);
-router.get("/documents/user/:userId", checkAccount, getRating);
 
 module.exports = router;
