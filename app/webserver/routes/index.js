@@ -8,10 +8,10 @@ const homeRouter = require("./home-router");
 const projectsRouter = require("./projects-router");
 
 module.exports = {
-  accountRouter,
-  authRouter,
-  documentRouter,
-  userRouter,
-  homeRouter,
-  projectsRouter
+	accountRouter,
+	authRouter,
+	documentRouter,
+	userRouter,
+	homeRouter,
+	projectsRouter,
 };
