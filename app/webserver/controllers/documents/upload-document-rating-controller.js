@@ -39,7 +39,7 @@ async function uploadRating(req, res, next) {
 		const sqlQuery = `UPDATE documents SET rating = ? 
     WHERE doc_id = ?`;
 
-		await connection.query(sqlQuery, [rating, projectId, docId]);
+		await connection.query(sqlQuery, [rating, docId]);
 
 		connection.release();
 		return res.status(200).send("rating enviado");
