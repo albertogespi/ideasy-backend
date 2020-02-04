@@ -1,0 +1,11 @@
+POSTMAN
+
+- Cómo pasar datos en el req.body:
+	- seleccionar 'raw'
+	- seleccionar JSON en el desenrrollable de la derecha que trae 'text'
+	- escribir la información así:
+		{
+			"email": "blablabla@gmail.com",
+			"password": "asivnaosf"
+		}
+	- darle a send
