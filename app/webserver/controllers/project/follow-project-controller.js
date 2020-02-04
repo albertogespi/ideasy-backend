@@ -4,7 +4,7 @@
 const mysqlPool = require("../../../database/mysql-pool");
 
 async function followProject(req, res, next) {
-	const { userId } = req.body;
+	const { userId } = req.claims;
 	const { projectId } = req.params;
 
 	let connection;

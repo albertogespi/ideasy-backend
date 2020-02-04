@@ -7,7 +7,7 @@ const checkAccount = require("../controllers/account/check-account-controller");
 const getDocuments = require("../controllers/documents/get-documents-controller");
 const uploadDocument = require("../controllers/documents/upload-document-controller");
 const uploadRating = require("../controllers/documents/upload-document-rating-controller");
-
+const deleteDocument = require("../controllers/documents/delete-document-controller");
 const upload = multer();
 const router = express.Router();
 
@@ -17,8 +17,8 @@ router.post(
 	upload.single("document"),
 	uploadDocument,
 );
-
 router.get("/documents/projects/:projectId", checkAccount, getDocuments);
 router.post("/documents/:docId", checkAccount, uploadRating);
+router.delete("/documents/:docId", checkAccount, deleteDocument);
 
 module.exports = router;
