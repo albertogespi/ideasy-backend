@@ -10,11 +10,6 @@ async function validateSchema(payload) {
       .min(1)
       .max(5)
       .required(),
-    projectId: Joi.string()
-      .guid({
-        version: ["uuidv4"]
-      })
-      .required(),
     docId: Joi.string()
       .guid({
         version: ["uuidv4"]
@@ -27,8 +22,8 @@ async function validateSchema(payload) {
 
 async function uploadRating(req, res, next) {
   const { rating } = req.body;
-  const { projectId, docId } = req.params;
-  const data = { rating, projectId, docId };
+  const { docId } = req.params;
+  const data = { rating, docId };
 
   try {
     await validateSchema(data);
@@ -42,9 +37,9 @@ async function uploadRating(req, res, next) {
     connection = await mysqlPool.getConnection();
 
     const sqlQuery = `UPDATE documents SET rating = ? 
-    WHERE project_id = ? AND doc_id = ?`;
+    WHERE doc_id = ?`;
 
-    await connection.query(sqlQuery, [rating, projectId, docId]);
+    await connection.query(sqlQuery, [rating, docId]);
 
     connection.release();
     return res.status(200).send("rating enviado");

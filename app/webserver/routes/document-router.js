@@ -4,22 +4,23 @@ const express = require("express");
 const multer = require("multer");
 
 const checkAccount = require("../controllers/account/check-account-controller");
-const getDocuments = require("../controllers/documents/get-document-controller");
+const getDocuments = require("../controllers/documents/get-documents-controller");
+const getRating = require("../controllers/documents/get-document-rating-controller");
 const uploadDocument = require("../controllers/documents/upload-document-controller");
 const uploadRating = require("../controllers/documents/upload-document-rating-controller");
 
 const upload = multer();
 const router = express.Router();
 
-router.get("/documents/:projectId", checkAccount, getDocuments);
-
 router.post(
-  "/documents/:projectId",
+  "/documents/projects/:projectId",
   checkAccount,
   upload.single("document"),
   uploadDocument
 );
 
-router.post("/documents/:projectId/:docId", checkAccount, uploadRating);
+router.get("/documents/projects/:projectId", checkAccount, getDocuments);
+router.post("/documents/:docId", checkAccount, uploadRating);
+router.get("/documents/user/:userId", checkAccount, getRating);
 
 module.exports = router;
