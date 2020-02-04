@@ -4,22 +4,30 @@ const mysqlPool = require("../../../database/mysql-pool");
 const Joi = require("@hapi/joi");
 const uuidV4 = require("uuid/v4");
 
-async function validate(payload) {
+async function validateSchema(payload) {
   const schema = Joi.object({
     title: Joi.string()
       .trim()
       .min(1)
-      .max(255)
+      .max(45)
       .required(),
     description: Joi.string()
       .trim()
       .min(10)
-      .max(280)
+      .max(255)
       .required(),
     details: Joi.string()
       .trim()
       .min(10)
       .max(65536)
+      .required(),
+    category: Joi.string()
+      .trim()
+      .required(),
+    complexity: Joi.number()
+      .integer()
+      .min(1)
+      .max(3)
       .required()
   });
 
@@ -31,7 +39,7 @@ async function createProject(req, res, next) {
   const projectData = { ...req.body };
 
   try {
-    await validate(projectData);
+    await validateSchema(projectData);
   } catch (e) {
     return res.status(400).send(e);
   }
@@ -47,23 +55,25 @@ async function createProject(req, res, next) {
 
     const projectId = uuidV4();
     const project = {
-      id: projectId,
-      title,
-      description,
-      details,
+      project_id: projectId,
       user_id: userId,
+      title: projectData.title,
+      description: projectData.description,
+      details: projectData.details,
+      category: projectData.category,
+      complexity: projectData.complexity,
       created_at: now
     };
 
-    const sqlCreateProject = `UPDATE projects
+    const sqlCreateProject = `INSERT INTO projects
     SET project_id = ?,
+    user_id = ?,
     title = ?,
     description = ?,
     details = ?,
     sector = ?,
     complexity = ?,
-    created_at = ?
-    WHERE user_id = ?`;
+    created_at = ?`;
 
     await connection.query(sqlCreateProject, project);
 
