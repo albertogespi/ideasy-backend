@@ -14,12 +14,12 @@ const router = express.Router();
 router.get("/documents/:projectId", checkAccount, getDocuments);
 
 router.post(
-  "/documents/:projectId",
-  checkAccount,
-  upload.single("document"),
-  uploadDocument
+	"/documents/:projectId",
+	checkAccount,
+	upload.single("document"),
+	uploadDocument,
 );
 
-router.post("/documents/:projectId/:docId", checkAccount, uploadRating);
+router.post("/documents/:docId", checkAccount, uploadRating);
 
 module.exports = router;

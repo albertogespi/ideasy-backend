@@ -9,9 +9,9 @@ const getContributedProjects = require("../controllers/projects/get-dev-contribu
 
 const router = express.Router();
 
-// router.post("/projects/new", createProject);
-router.get("/projects/:userId", getOrgProjects);
-router.get("/projects/followed/:userId", getFollowedProjects);
 router.get("/projects/contributed/:userId", getContributedProjects);
+router.get("/projects/followed/:userId", getFollowedProjects);
+router.get("/projects/:userId", getOrgProjects);
+// router.post("/projects/new", createProject);
 
 module.exports = router;
