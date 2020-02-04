@@ -48,7 +48,8 @@ async function uploadAvatar(req, res, next) {
           const sqlQuery = `UPDATE users 
           SET avatar_url = ?,
           updated_at = ?
-          WHERE user_id = ?`;
+          WHERE user_id = ?
+          AND deleted_at IS NULL`;
 
           connection.execute(sqlQuery, [secureUrl, now, userId]);
           connection.release();

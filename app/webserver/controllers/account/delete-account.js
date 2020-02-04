@@ -1,36 +1,33 @@
 "use strict";
 
+const bcrypt = require("bcrypt");
 const mysqlPool = require("../../../database/mysql-pool");
 const Joi = require("@hapi/joi");
-const bcrypt = require("bcrypt");
 
-async function validateSchema(payload) {
+async function validate(payload) {
   const schema = Joi.object({
-    password: Joi.string()
-      .regex(/^[a-zA-Z0-9]{3,30}$/)
-      .required(),
-    newPassword: Joi.string()
-      .regex(/^[a-zA-Z0-9]{3,30}$/)
-      .required(),
     userId: Joi.string()
       .guid({
         version: ["uuidv4"]
       })
+      .required(),
+    password: Joi.string()
+      .regex(/^[a-zA-Z0-9]{3,30}$/)
       .required()
   });
 
   Joi.assert(payload, schema);
 }
 
-async function updatePassword(req, res, next) {
+async function deleteAccount(req, res, next) {
+  const { password } = req.body;
   const { userId } = req.claims;
-  const accountData = { ...req.body, userId };
+  const accountData = { userId, password };
 
   try {
-    await validateSchema(accountData);
+    await validate(accountData);
   } catch (e) {
-    console.error(e);
-    return res.status(400).send(e);
+    return res.status(400).send();
   }
 
   let connection;
@@ -61,7 +58,7 @@ async function updatePassword(req, res, next) {
           return res
             .status(401)
             .send(
-              "password incorrecta: introduzca su password actual para poder cambiarla"
+              "password incorrecta: introduzca su password para borrar su cuenta"
             );
         }
       } catch (e) {
@@ -71,17 +68,14 @@ async function updatePassword(req, res, next) {
       return res.status(500).send();
     }
 
-    const securePassword = await bcrypt.hash(accountData.newPassword, 10);
-
-    const sqlUpdatePassword = `UPDATE users
-    SET password = ?, 
-    updated_at = ?
+    const sqlDeleteAccount = `UPDATE users
+    SET deleted_at = ?
     WHERE user_id = ?
     AND deleted_at IS NULL`;
 
-    await connection.query(sqlUpdatePassword, [securePassword, now, userId]);
+    await connection.query(sqlDeleteAccount, [now, userId]);
     connection.release();
-    return res.status(200).send("Password cambiada");
+    return res.status(200).send("Cuenta borrada");
   } catch (e) {
     if (connection) {
       connection.release();
@@ -93,4 +87,4 @@ async function updatePassword(req, res, next) {
   }
 }
 
-module.exports = updatePassword;
+module.exports = deleteAccount;

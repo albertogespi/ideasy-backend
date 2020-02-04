@@ -8,7 +8,10 @@ async function getUser(req, res, next) {
   try {
     const connection = await mysqlPool.getConnection();
 
-    const sqlQuery = `SELECT * FROM users WHERE user_id = ?`;
+    const sqlQuery = `SELECT * FROM users 
+    WHERE user_id = ? 
+    AND deleted_at IS NULL`;
+
     const [rows] = await connection.execute(sqlQuery, [userId]);
     connection.release();
 

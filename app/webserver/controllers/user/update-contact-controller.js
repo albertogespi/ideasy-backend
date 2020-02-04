@@ -42,7 +42,8 @@ async function updateContact(req, res, next) {
     SET contact_email = ?, 
     contact_web = ?, 
     updated_at = ?
-    WHERE user_id = ?`;
+    WHERE user_id = ?
+    AND deleted_at IS NULL`;
 
     await connection.query(sqlUpdateContact, [
       userData.contactEmail,

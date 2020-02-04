@@ -44,7 +44,8 @@ async function updateName(req, res, next) {
     SET name = ?, 
     surname = ?, 
     updated_at = ?
-    WHERE user_id = ?`;
+    WHERE user_id = ?
+    AND deleted_at IS NULL`;
 
     await connection.query(sqlUpdateName, [
       userData.name,

@@ -124,7 +124,18 @@ USE `portalDeIdeas` ;
 -- -----------------------------------------------------
 -- Placeholder table for view `portalDeIdeas`.`projectsAndFollowers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `portalDeIdeas`.`projectsAndFollowers` (`project_id` INT, `user_id` INT, `title` INT, `description` INT, `details` INT, `category` INT, `complexity` INT, `created_at` INT, `updated_at` INT, `closed_at` INT, `number_of_followers` INT);
+CREATE TABLE IF NOT EXISTS `portalDeIdeas`.`projectsAndFollowers` (
+  `project_id` INT, 
+  `user_id` INT,
+  `title` INT,
+  `description` INT,
+  `details` INT,
+  `category` INT,
+  `complexity` INT,
+  `created_at` INT,
+  `updated_at` INT,
+  `closed_at` INT, 
+  `number_of_followers` INT);
 
 -- -----------------------------------------------------
 -- View `portalDeIdeas`.`projectsAndFollowers`
