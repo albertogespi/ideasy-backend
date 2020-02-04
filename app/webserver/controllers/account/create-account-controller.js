@@ -74,7 +74,7 @@ async function createAccount(req, res, next) {
 
 		res.status(201).send();
 
-		//send an email
+		//send an email to new user
 		await sendWelcomeEmail(accountData);
 	} catch (e) {
 		if (connection) {
