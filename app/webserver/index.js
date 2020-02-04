@@ -12,6 +12,7 @@ const {
 	userRouter,
 	homeRouter,
 	projectsRouter,
+	projectRouter,
 } = require("./routes");
 
 app.get("/", (req, res) => res.send("Bienvenidos a nuestro portal de ideas!"));
@@ -21,6 +22,7 @@ app.use("/api", documentRouter);
 app.use("/api", userRouter);
 app.use("/api", homeRouter);
 app.use("/api", projectsRouter);
+app.use("/api", projectRouter);
 
 let server = null;
 

@@ -12,13 +12,12 @@ const upload = multer();
 const router = express.Router();
 
 router.post(
-  "/documents/projects/:projectId",
-  checkAccount,
-  upload.single("document"),
-  uploadDocument
+	"/documents/projects/:projectId",
+	checkAccount,
+	upload.single("document"),
+	uploadDocument,
 );
 
-router.get("/documents/user/:userId", checkAccount, getRating);
 router.get("/documents/projects/:projectId", checkAccount, getDocuments);
 router.post("/documents/:docId", checkAccount, uploadRating);
 
