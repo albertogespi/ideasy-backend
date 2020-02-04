@@ -5,7 +5,7 @@ const Joi = require("@hapi/joi");
 const jwt = require("jsonwebtoken");
 //const mysqlPool = require("../../../database/mysql-pool");
 
-const checkExistenceAccount = require("../account/check-account-existence");
+const checkExistenceAccount = require("./check-account-existence");
 
 async function validate(payload) {
 	const schema = Joi.object({
