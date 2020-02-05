@@ -54,16 +54,6 @@ async function createProject(req, res, next) {
       .replace("T", " ");
 
     const projectId = uuidV4();
-    const project = {
-      project_id: projectId,
-      user_id: userId,
-      title: projectData.title,
-      description: projectData.description,
-      details: projectData.details,
-      category: projectData.category,
-      complexity: projectData.complexity,
-      created_at: now
-    };
 
     const sqlCreateProject = `INSERT INTO projects
     SET project_id = ?,
@@ -71,11 +61,20 @@ async function createProject(req, res, next) {
     title = ?,
     description = ?,
     details = ?,
-    sector = ?,
+    category = ?,
     complexity = ?,
     created_at = ?`;
 
-    await connection.query(sqlCreateProject, project);
+    await connection.query(sqlCreateProject, [
+      projectId,
+      userId,
+      projectData.title,
+      projectData.description,
+      projectData.details,
+      projectData.category,
+      projectData.complexity,
+      now
+    ]);
 
     connection.release();
     return res.status(201).send("proyecto creado");
