@@ -31,7 +31,8 @@ async function validateSchema(payload) {
 async function updateProject(req, res, next) {
   const { projectId } = req.params;
   const { userId } = req.claims;
-  const projectData = { ...req.body, projectId, userId };
+  const { title, description, details, category, complexity } = req.body;
+  const projectData = { title, description, details, projectId };
 
   try {
     await validateSchema(projectData);
@@ -58,23 +59,29 @@ async function updateProject(req, res, next) {
       WHERE project_id = ?
       AND user_id = ?`;
 
-    await connection.query(
-      sqlQuery[
-        (projectData.title,
-        projectData.description,
-        projectData.details,
-        projectData.category,
-        projectData.complexity,
-        projectData.updatedAt,
-        projectId,
-        userId)
-      ]
-    );
+    await connection.query(sqlQuery, [
+      title,
+      description,
+      details,
+      category,
+      complexity,
+      now,
+      projectId,
+      userId
+    ]);
 
     connection.release();
 
     res.status(201).send();
-  } catch (e) {}
+  } catch (e) {
+    if (connection) {
+      connection.release();
+    }
+    console.error(e);
+    return res.status(500).send({
+      message: e.message
+    });
+  }
 }
 
 module.exports = updateProject;
