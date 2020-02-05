@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/project/followers/:projectId", getUsersFollowingProject);
 router.post("/project/followers/:projectId", checkAccount, followProject);
-router.get("/project/:projectId", checkAccount, getProject);
+router.get("/project/:projectId", getProject);
 router.post("/project/:projectId", checkAccount, closeProject);
 router.put("/project/:projectId", checkAccount, updateProject);
 

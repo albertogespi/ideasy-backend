@@ -10,11 +10,6 @@ async function validateSchema(payload) {
       .guid({
         version: ["uuidv4"]
       })
-      .required(),
-    userId: Joi.string()
-      .guid({
-        version: ["uuidv4"]
-      })
       .required()
   });
 
@@ -23,8 +18,7 @@ async function validateSchema(payload) {
 
 async function closeProject(req, res, next) {
   const { projectId } = req.params;
-  const { userId } = req.claims;
-  const projectData = { projectId, userId };
+  const projectData = { projectId };
 
   try {
     await validateSchema(projectData);
@@ -42,10 +36,9 @@ async function closeProject(req, res, next) {
 
     const sqlQuery = `UPDATE projects
     SET closed_at = ?
-    WHERE project_id = ?
-    AND user_id = ? `;
+    WHERE project_id = ?`;
 
-    await connection.query(sqlQuery, [now, projectId, userId]);
+    await connection.query(sqlQuery, [now, projectId]);
 
     connection.release();
     return res.status(200).send("proyecto cerrado");

@@ -9,15 +9,18 @@ async function validateSchema(payload) {
     title: Joi.string()
       .trim()
       .min(1)
-      .max(45),
+      .max(45)
+      .required(),
     description: Joi.string()
       .trim()
       .min(10)
-      .max(255),
+      .max(255)
+      .required(),
     details: Joi.string()
       .trim()
       .min(10)
-      .max(65536),
+      .max(65536)
+      .required(),
     projectId: Joi.string()
       .guid({
         version: ["uuidv4"]
@@ -30,7 +33,6 @@ async function validateSchema(payload) {
 
 async function updateProject(req, res, next) {
   const { projectId } = req.params;
-  const { userId } = req.claims;
   const { title, description, details, category, complexity } = req.body;
   const projectData = { title, description, details, projectId };
 
@@ -56,8 +58,7 @@ async function updateProject(req, res, next) {
       category = ?,
       complexity = ?,
       updated_at = ?
-      WHERE project_id = ?
-      AND user_id = ?`;
+      WHERE project_id = ?`;
 
     await connection.query(sqlQuery, [
       title,
@@ -66,8 +67,7 @@ async function updateProject(req, res, next) {
       category,
       complexity,
       now,
-      projectId,
-      userId
+      projectId
     ]);
 
     connection.release();
