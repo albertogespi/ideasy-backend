@@ -47,7 +47,7 @@ async function updatePassword(req, res, next) {
       connection.release();
 
       if (rows.length !== 1) {
-        return res.status(401).send();
+        return res.status(404).send();
       }
 
       const userData = rows[0];
@@ -59,7 +59,7 @@ async function updatePassword(req, res, next) {
         );
         if (!isPasswordOk) {
           return res
-            .status(401)
+            .status(400)
             .send(
               "password incorrecta: introduzca su password actual para poder cambiarla"
             );
