@@ -16,7 +16,7 @@ async function getUsersFollowingProject(req, res, next) {
     const [data] = await connection.execute(sqlQuery);
     connection.release();
 
-    return res.send(data);
+    return res.status(200).send(data);
   } catch (e) {
     if (connection) {
       connection.release();
