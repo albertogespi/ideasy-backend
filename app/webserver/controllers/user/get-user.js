@@ -3,29 +3,29 @@
 const mysqlPool = require("../../../database/mysql-pool");
 
 async function getUser(req, res, next) {
-  const { userId } = req.claims;
+	const { userId } = req.params;
 
-  try {
-    const connection = await mysqlPool.getConnection();
+	try {
+		const connection = await mysqlPool.getConnection();
 
-    const sqlQuery = `SELECT * FROM users 
+		const sqlQuery = `SELECT * FROM users 
     WHERE user_id = ? 
     AND deleted_at IS NULL`;
 
-    const [rows] = await connection.execute(sqlQuery, [userId]);
-    connection.release();
+		const [rows] = await connection.execute(sqlQuery, [userId]);
+		connection.release();
 
-    if (rows.length !== 1) {
-      return res.status(404).send("el usuario no existe");
-    }
+		if (rows.length !== 1) {
+			return res.status(404).send("el usuario no existe");
+		}
 
-    const [user] = rows;
+		const [user] = rows;
 
-    return res.status(200).send(user);
-  } catch (e) {
-    console.error(e);
-    return res.status(500).send();
-  }
+		return res.status(200).send(user);
+	} catch (e) {
+		console.error(e);
+		return res.status(500).send();
+	}
 }
 
 module.exports = getUser;
