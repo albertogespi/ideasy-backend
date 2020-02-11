@@ -20,6 +20,10 @@ sg.setApiKey(process.env.SENDGRID_API_KEY);
 
 async function createAccount(req, res, next) {
   const accountData = { ...req.body };
+  if (accountData.surname === "") {
+    accountData.surname = null;
+  }
+  console.log(accountData);
 
   //check data
   try {
@@ -97,7 +101,7 @@ function validateSchema(data) {
       .email()
       .required(),
     name: joi.string().required(),
-    surname: joi.string(),
+    surname: joi.string().allow(null),
     password: joi
       .string()
       .regex(/^[a-zA-Z0-9]{3,30}$/)
