@@ -32,6 +32,8 @@ async function updateProfile(req, res, next) {
   const { userId } = req.claims;
   const accountData = { ...req.body, userId };
 
+  console.log(req.body);
+
   if (accountData.surname === "") {
     accountData.surname = null;
   }
@@ -40,12 +42,18 @@ async function updateProfile(req, res, next) {
     accountData.contactWeb = null;
   }
 
+  if (accountData.newPassword === "") {
+    accountData.newPassword = null;
+  }
+
   try {
     await validateSchema(accountData);
   } catch (e) {
     console.error(e);
     return res.status(400).send(e);
   }
+
+  console.log(`hola hola`);
 
   let connection;
   try {
@@ -95,24 +103,17 @@ async function updateProfile(req, res, next) {
     }
 
     const sqlUpdatePassword = `UPDATE users
-    SET name = ?,
-    surname = ?,
-    password = ?,
-    contact_email = ?,
-    contact_web = ?, 
-    updated_at = ?
-    WHERE user_id = ?
+    SET name = '${accountData.name}',
+    surname = '${accountData.surname || "NULL"}',
+    password = '${securePassword}',
+    contact_email = '${accountData.contactEmail}',
+    contact_web = '${accountData.contactWeb || "NULL"}', 
+    updated_at = '${now}'
+    WHERE user_id = '${userId}'
     AND deleted_at IS NULL`;
 
-    await connection.query(sqlUpdatePassword, [
-      accountData.name,
-      accountData.surname,
-      securePassword,
-      accountData.contactEmail,
-      accountData.contactWeb,
-      now,
-      userId
-    ]);
+    await connection.query(sqlUpdatePassword);
+
     connection.release();
     return res.status(200).send("Perfil actualizado");
   } catch (e) {

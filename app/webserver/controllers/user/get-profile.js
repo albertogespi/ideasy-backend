@@ -21,7 +21,15 @@ async function getProfile(req, res, next) {
 
     const [user] = rows;
 
-    return res.status(200).send(user);
+    return res.status(200).send({
+      avatarUrl: user.avatar_url,
+      name: user.name,
+      surname: user.surname,
+      contactEmail: user.contact_email,
+      contactWeb: user.contact_web,
+      role: user.role,
+      email: user.email
+    });
   } catch (e) {
     console.error(e);
     return res.status(500).send();
