@@ -37,7 +37,6 @@ async function login(req, res, next) {
 		}
 
 		const user = data[0];
-		console.log(user);
 
 		try {
 			const isPasswordOk = await bcrypt.compare(
@@ -61,12 +60,16 @@ async function login(req, res, next) {
 			expiresIn: jwtExpiresIn,
 		});
 
+		console.log(user.name, token);
 		return res.send({
 			accessToken: token,
 			avatarUrl: user.avatar_url,
 			expiresIn: jwtExpiresIn,
 			name: user.name,
 			surname: user.surname,
+			contactEmail: user.contact_email,
+			contactWeb: user.contact_web,
+			role: user.role,
 			email: user.email,
 			userId: user.user_id,
 		});
