@@ -7,16 +7,16 @@ const mysqlPool = require("../../../database/mysql-pool");
  * in the database (it already exists an user with that email) and returns a data response.
  */
 async function checkExistenceAccount(email) {
-  const sqlQuery = `SELECT user_id, email, password, avatar_url, role
+	const sqlQuery = `SELECT *
     FROM users
 	WHERE email = '${email}' 
 	AND deleted_at IS NULL`;
 
-  const connection = await mysqlPool.getConnection();
-  const [rows] = await connection.query(sqlQuery);
-  connection.release();
+	const connection = await mysqlPool.getConnection();
+	const [rows] = await connection.query(sqlQuery);
+	connection.release();
 
-  return rows;
+	return rows;
 }
 
 module.exports = checkExistenceAccount;
