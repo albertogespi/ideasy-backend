@@ -84,7 +84,7 @@ async function updateProfile(req, res, next) {
             return res
               .status(400)
               .send(
-                "password incorrecta: introduzca su password actual para poder cambiarla"
+                "password incorrecta: introduzca su password actual para modificar sus datos"
               );
           }
         } catch (e) {
