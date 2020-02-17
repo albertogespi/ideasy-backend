@@ -13,7 +13,10 @@ async function uploadAvatar(req, res, next) {
   const { userId } = req.claims;
   const { file } = req;
 
+  console.log(req);
+
   if (!file || !file.buffer) {
+    console.log("no hay archivo");
     return res.status(400).send({
       message: "invalid image"
     });
