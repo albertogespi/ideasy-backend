@@ -11,10 +11,6 @@ async function getDocuments(req, res, next) {
 		const [documents] = await connection.execute(sqlQuery, [projectId]);
 		connection.release();
 
-		if (documents.length === 0) {
-			return res.status(404).send("no se ha encontrado el proyecto");
-		}
-
 		return res.status(200).send(documents);
 	} catch (e) {
 		console.error(e);

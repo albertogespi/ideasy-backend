@@ -15,7 +15,7 @@ async function uploadDocument(req, res, next) {
 	const docId = uuid();
 	const { projectId } = req.params;
 	const { title } = req.body;
-	const { userId, role } = req.claims;
+	const { userId } = req.claims;
 
 	if (!file || !file.buffer) {
 		return res.status(400).send({

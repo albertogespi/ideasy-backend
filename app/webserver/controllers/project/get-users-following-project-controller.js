@@ -6,7 +6,6 @@ const mysqlPool = require("../../../database/mysql-pool");
 async function getUsersFollowingProject(req, res, next) {
 	const { projectId } = req.params;
 
-	console.log(projectId);
 	let connection;
 	try {
 		connection = await mysqlPool.getConnection();
