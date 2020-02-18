@@ -17,7 +17,7 @@ router.post(
 	upload.single("document"),
 	uploadDocument,
 );
-router.get("/documents/projects/:projectId", checkAccount, getDocuments);
+router.get("/documents/projects/:projectId", getDocuments);
 router.post("/documents/:docId", checkAccount, uploadRating);
 router.delete("/documents/:docId", checkAccount, deleteDocument);
 
