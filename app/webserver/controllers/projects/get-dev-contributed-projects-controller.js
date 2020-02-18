@@ -12,13 +12,15 @@ async function getContributedProjects(req, res, next) {
 		connection = await mysqlPool.getConnection();
 
 		//query to obtain the data
-		let sqlQuery = `SELECT projectsAndFollowers.* FROM projectsAndFollowers INNER JOIN documents ON projectsAndFollowers.project_id = documents.project_id WHERE documents.user_id = "${userId}" GROUP BY projectsAndFollowers.project_id`;
+		let sqlQuery = `SELECT projectsAndFollowers.* FROM projectsAndFollowers INNER JOIN documents ON projectsAndFollowers.project_id = documents.project_id WHERE documents.user_id = "${userId}"`;
 
 		if (Object.keys(filters).length !== 0) {
 			for (const filter in filters) {
 				sqlQuery += ` AND ${filter} = "${filters[filter]}"`;
 			}
 		}
+
+		sqlQuery += " GROUP BY projectsAndFollowers.project_id";
 
 		const [data] = await connection.execute(sqlQuery);
 		connection.release();
