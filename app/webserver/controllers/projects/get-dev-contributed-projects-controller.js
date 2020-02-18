@@ -22,6 +22,7 @@ async function getContributedProjects(req, res, next) {
 
     const [data] = await connection.execute(sqlQuery);
     connection.release();
+    console.log(data);
 
     return res.status(200).send(data);
   } catch (e) {
