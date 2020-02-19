@@ -3,7 +3,7 @@
 //MYSQL POOL CONNECTION
 const mysqlPool = require("../../../database/mysql-pool");
 
-async function followProject(req, res, next) {
+async function unfollowProject(req, res, next) {
 	const { userId } = req.claims;
 	const { projectId } = req.params;
 
@@ -15,8 +15,8 @@ async function followProject(req, res, next) {
 		const [rows] = await connection.query(sqlQuery);
 		connection.release();
 
-		if (rows.length !== 0) {
-			return res.status(409).send("El usuario ya sigue a ese proyecto.");
+		if (rows.length === 0) {
+			return res.status(409).send("El usuario no sigue a ese proyecto.");
 		}
 	} catch (e) {
 		if (connection) {
@@ -31,14 +31,12 @@ async function followProject(req, res, next) {
 	try {
 		connection = await mysqlPool.getConnection();
 
-		await connection.query("INSERT INTO users_projects SET ?", {
-			user_id: userId,
-			project_id: projectId,
-		});
+		const sqlQuery = `DELETE FROM users_projects WHERE user_id = '${userId}' AND project_id = '${projectId}'`;
+		await connection.query(sqlQuery);
 
 		connection.release();
 
-		res.status(201).send("proyecto seguido con éxito.");
+		res.status(201).send("se ha dejado de seguir el proyecto con éxito.");
 	} catch (e) {
 		if (connection) {
 			connection.release();
@@ -49,4 +47,4 @@ async function followProject(req, res, next) {
 	}
 }
 
-module.exports = followProject;
+module.exports = unfollowProject;

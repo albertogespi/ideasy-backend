@@ -14,7 +14,6 @@ async function uploadDocument(req, res, next) {
 	const { file } = req;
 	const docId = uuid();
 	const { projectId } = req.params;
-	const { title } = req.body;
 	const { userId } = req.claims;
 
 	if (!file || !file.buffer) {
@@ -22,6 +21,9 @@ async function uploadDocument(req, res, next) {
 			message: "invalid document",
 		});
 	}
+
+	const title = file.originalname;
+	console.log(file);
 
 	cloudinary.uploader
 		.upload_stream(
