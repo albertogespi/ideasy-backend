@@ -4,36 +4,36 @@
 const mysqlPool = require("../../../database/mysql-pool");
 
 async function getContributedProjects(req, res, next) {
-  const { userId } = req.params;
-  const filters = req.query;
+	const { userId } = req.params;
+	const filters = req.query;
 
-  let connection;
-  try {
-    connection = await mysqlPool.getConnection();
+	let connection;
+	try {
+		connection = await mysqlPool.getConnection();
 
-    //query to obtain the data
-    let sqlQuery = `SELECT projectsAndFollowers.* FROM projectsAndFollowers INNER JOIN documents ON projectsAndFollowers.project_id = documents.project_id WHERE documents.user_id = "${userId}"`;
+		//query to obtain the data
+		let sqlQuery = `SELECT projectsAndFollowers.* FROM projectsAndFollowers INNER JOIN documents ON projectsAndFollowers.project_id = documents.project_id WHERE documents.user_id = "${userId}" AND documents.deleted_at IS NULL`;
 
-    if (Object.keys(filters).length !== 0) {
-      for (const filter in filters) {
-        sqlQuery += ` AND ${filter} = "${filters[filter]}"`;
-      }
-    }
+		if (Object.keys(filters).length !== 0) {
+			for (const filter in filters) {
+				sqlQuery += ` AND ${filter} = "${filters[filter]}"`;
+			}
+		}
 
-    sqlQuery += " GROUP BY projectsAndFollowers.project_id";
+		sqlQuery += " GROUP BY projectsAndFollowers.project_id";
 
-    const [data] = await connection.execute(sqlQuery);
-    connection.release();
+		const [data] = await connection.execute(sqlQuery);
+		connection.release();
 
-    return res.status(200).send(data);
-  } catch (e) {
-    if (connection) {
-      connection.release();
-    }
+		return res.status(200).send(data);
+	} catch (e) {
+		if (connection) {
+			connection.release();
+		}
 
-    console.error(e);
-    return res.status(500).send();
-  }
+		console.error(e);
+		return res.status(500).send();
+	}
 }
 
 module.exports = getContributedProjects;

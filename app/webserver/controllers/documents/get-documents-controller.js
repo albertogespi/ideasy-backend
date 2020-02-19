@@ -7,7 +7,7 @@ async function getDocuments(req, res, next) {
 
 	try {
 		const connection = await mysqlPool.getConnection();
-		const sqlQuery = `SELECT * FROM documentsAndUsers WHERE project_id = ?`;
+		const sqlQuery = `SELECT * FROM documentsAndUsers WHERE project_id = ? AND deleted_at IS NULL`;
 		const [documents] = await connection.execute(sqlQuery, [projectId]);
 		connection.release();
 
