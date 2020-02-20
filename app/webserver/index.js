@@ -28,6 +28,7 @@ const {
 	homeRouter,
 	projectRouter,
 	projectsRouter,
+	searchRouter,
 } = require("./routes");
 
 app.get("/", (req, res) => res.send("Bienvenidos a nuestro portal de ideas!"));
@@ -39,6 +40,7 @@ app.use("/api", homeRouter);
 app.use("/api", projectRouter);
 app.use("/api", projectsRouter);
 app.use("/api", projectRouter);
+app.use("/api", searchRouter);
 
 let server = null;
 

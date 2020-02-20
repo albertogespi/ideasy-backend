@@ -6,6 +6,7 @@ const userRouter = require("./user-router");
 const homeRouter = require("./home-router");
 const projectRouter = require("./project-router");
 const projectsRouter = require("./projects-router");
+const searchRouter = require("./search-router");
 
 module.exports = {
 	accountRouter,
@@ -14,4 +15,5 @@ module.exports = {
 	homeRouter,
 	projectRouter,
 	projectsRouter,
+	searchRouter,
 };
