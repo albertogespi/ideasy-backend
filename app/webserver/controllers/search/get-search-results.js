@@ -27,7 +27,10 @@ async function getSearchResults(req, res, next) {
 		const [dataUsers] = await connection.execute(sqlQueryUsers);
 		connection.release();
 
-		const searchResults = { projects: dataProjects, users: dataUsers };
+		const searchResults =
+			dataProjects.length === 0 && dataUsers.length === 0
+				? {}
+				: { projects: dataProjects, users: dataUsers };
 		return res.status(200).send(searchResults);
 	} catch (e) {
 		if (connection) {
