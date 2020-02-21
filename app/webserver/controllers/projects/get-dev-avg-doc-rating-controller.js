@@ -8,7 +8,7 @@ async function getAvgRatings(req, res, next) {
 	try {
 		const connection = await mysqlPool.getConnection();
 		const sqlQuery = `SELECT COALESCE(AVG(rating), 0) AS rating_average 
-    FROM documents WHERE user_id = ? WHERE deleted_at IS NULL`;
+    FROM documents WHERE user_id = ? AND deleted_at IS NULL`;
 
 		const [rows] = await connection.execute(sqlQuery, [userId]);
 		connection.release();
