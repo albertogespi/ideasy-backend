@@ -20,7 +20,7 @@ async function getProjectsOrdered(req, res, next) {
     switch (projectsOrder) {
       case LATEST:
         sqlQuery = "SELECT * FROM projectsAndFollowers";
-        console.log(sqlQuery);
+
         break;
       case MOST_POPULAR:
         sqlQuery =
@@ -29,7 +29,7 @@ async function getProjectsOrdered(req, res, next) {
     }
 
     const [data] = await connection.execute(sqlQuery);
-    console.log(data);
+
     connection.release();
 
     return res.status(200).send(data);

@@ -3,32 +3,32 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-app.use(cors()); //esto permite la conexión frontend-backend, en teoría
+app.use(cors());
+d;
 app.use(express.json());
 
-//este middleware permite al frontend acceder al header location según dijo Yago
 app.use((req, res, next) => {
-	const accessControlAllowHeaders = ["Location"];
+  const accessControlAllowHeaders = ["Location"];
 
-	res.header(
-		"Access-Control-Allow-Headers",
-		accessControlAllowHeaders.join(","),
-	);
-	res.header(
-		"Access-Control-Expose-Headers",
-		accessControlAllowHeaders.join(","),
-	);
-	next();
+  res.header(
+    "Access-Control-Allow-Headers",
+    accessControlAllowHeaders.join(",")
+  );
+  res.header(
+    "Access-Control-Expose-Headers",
+    accessControlAllowHeaders.join(",")
+  );
+  next();
 });
 
 const {
-	accountRouter,
-	documentsRouter,
-	userRouter,
-	homeRouter,
-	projectRouter,
-	projectsRouter,
-	searchRouter,
+  accountRouter,
+  documentsRouter,
+  userRouter,
+  homeRouter,
+  projectRouter,
+  projectsRouter,
+  searchRouter
 } = require("./routes");
 
 app.get("/", (req, res) => res.send("Bienvenidos a nuestro portal de ideas!"));
@@ -45,16 +45,16 @@ app.use("/api", searchRouter);
 let server = null;
 
 async function listen(port) {
-	if (server) {
-		return server;
-	}
-	try {
-		server = await app.listen(port);
-		return server;
-	} catch (e) {
-		console.error(e);
-		throw e;
-	}
+  if (server) {
+    return server;
+  }
+  try {
+    server = await app.listen(port);
+    return server;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
 }
 
 module.exports = { listen };
