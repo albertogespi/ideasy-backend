@@ -146,25 +146,25 @@ async function sendWelcomeEmail(accountData) {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Patrick+Hand&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	</head>
-	<body style="background-color: #f4f6f6; height: 100%; margin: 10px; font-family: 'Montserrat', sans-serif; font-size: 16px;">
+	<body style="background-color: #fcf8d3; height: 100%; margin: 10px; font-family: 'Montserrat', sans-serif; font-size: 16px;">
 		<header style="padding:10px; border: 3px solid rgb(51, 51, 51, 0.8); border-radius: 5px" >
-			<h1 style="text-align:center; color: #117a65">${title}</h1>
+			<h1 style="text-align:center; color: #e3cf5b">${title}</h1>
 		</header>
 		<main>
 		    <section id="intro">
-		        <p style="text-align:center; color: #333333">${intro}</p>
+		        <p style="text-align:center; color: #252a37">${intro}</p>
 		    </section>
 		    
 		    <section id="benefits">
-		        <h2 style="font-family: 'Patrick Hand', cursive; font-weight:400; color: #333333; text-align:center">${description}</h2>
-		        <p style="text-align:center; color:#117a65; font-size: 90px; margin:0">⬇</p>
-		        <ul style="color: #333333; list-style: disc inside none; border: 2px solid rgb(0, 0, 0, 0.1); padding: 15px 15px 15px 30px; border-radius: 20px; margin: 20px">${benefits}</ul>
+		        <h2 style="font-family: 'Patrick Hand', cursive; font-weight:400; color: #252a37; text-align:center">${description}</h2>
+		        <p style="text-align:center; color:#e3cf5b; font-size: 90px; margin:0">⬇</p>
+		        <ul style="color: #252a37; list-style: disc inside none; border: 2px solid rgb(0, 0, 0, 0.1); padding: 15px 15px 15px 30px; border-radius: 20px; margin: 20px">${benefits}</ul>
 		    </section>
 		</main>
-		<footer style="background-color: #333333; color: #f4f6f6; text-align:center; padding: 15px">
-		    <p style="text-align:center">·· Accede a la página: <a href="https://google.es/" style="color: #117a65">portaldeideas.es</a> ··</p>
+		<footer style="background-color: #252a37; color: #fcf8d3; text-align:center; padding: 15px">
+		    <p style="text-align:center">·· Accede a la página: <a href="https://google.es/" style="color: #e3cf5b">portaldeideas.es</a> ··</p>
 		</footer>
 	</body>
 </html>`,
