@@ -119,27 +119,26 @@ async function sendWelcomeEmail(accountData) {
 	let title, intro, description, benefits;
 
 	if (accountData.role === ORG_CODE) {
-		title = "Bienvenida a PortalDeIdeas";
+		title = "Bienvenida a Ideasy";
 		intro = `${username}, muchas gracias por confiar en nosotros.`;
-		description = "Estos son los servicios que ofrece nuestra página web:";
+		description = "Estos son los servicios que ofrece nuestro portal de ideas.";
 		benefits = `<li style="padding - bottom: 10px">Generad y publicad vuestros propios proyectos/ideas a desarrollar.</li>
-		<li>Control absoluto sobre toda la actividad de los mismos: acceso, alcance...</li>
-		<li>Gestión de las submisiones y comunicación directa con el desarrollador a través de los medios de comunicación integrados que facilitamos en la web.</li>`;
+		<li>Gestión de las contribuciones: ¡puntuad la mejor propuesta!.</li>`;
 	} else if (accountData.role === DEV_CODE) {
 		if (accountData.surname !== undefined) {
 			username += ` ${accountData.surname}`;
 		}
-		title = "¡Bienvenido/a a PortalDeIdeas!";
-		intro = `Querido/a ${username}, te damos la bienvenida a PortalDeIdeas. ¡Gracias por registrarte!`;
+		title = "¡Bienvenido/a a Ideasy!";
+		intro = `Querido/a ${username}, te damos la bienvenida a Ideasy. ¡Gracias por registrarte!`;
 		description =
-			"Disfruta ahora de todas las ventajas y servicios que ofrece nuestra página web.";
+			"Disfruta ahora de todas las ventajas y servicios que ofrece nuestro portal de ideas.";
 		benefits = `<li style="padding-bottom:10px">Participa en proyectos y ¡sube tus propias soluciones!</li>
-		            <li>Contacta directamente con la organización por los medios de comunicación que ofrecemos.</li>`;
+		            <li>Acumula puntos por tus contribuciones. ¡Destaca sobre el resto!</li>`;
 	}
 
 	const message = {
 		to: accountData.email,
-		from: "portaldeideas@yopmail.com",
+		from: "ideasy@yopmail.com",
 		subject: "Bienvenido :)",
 		html: `<html lang="es">
 	<head>
