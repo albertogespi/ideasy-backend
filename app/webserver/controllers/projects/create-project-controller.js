@@ -13,12 +13,12 @@ async function validateSchema(payload) {
       .required(),
     description: Joi.string()
       .trim()
-      .min(10)
+      .min(1)
       .max(255)
       .required(),
     details: Joi.string()
       .trim()
-      .min(10)
+      .min(1)
       .max(65536)
       .required(),
     category: Joi.string()
