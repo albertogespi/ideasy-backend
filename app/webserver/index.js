@@ -3,8 +3,14 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const path = require("path");
 app.use(cors());
 app.use(express.json());
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("http://localhost:8000/build"));
+  app.use(express.static(path.join(__dirname, "http://localhost:8000/build")));
+}
 
 app.use((req, res, next) => {
   const accessControlAllowHeaders = ["Location"];
