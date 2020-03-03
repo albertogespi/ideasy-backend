@@ -18,9 +18,7 @@
     "url": "https://gitlab.com/aitamuri/portaldeideas/issues"
   },
   "homepage": "https://gitlab.com/aitamuri/portaldeideas#readme",
-  "devDependencies": {
-    "express": "^4.17.1"
-  },
+  "devDependencies": {},
   "dependencies": {
     "@hapi/joi": "^16.1.7",
     "@sendgrid/mail": "^6.5.0",
@@ -28,6 +26,7 @@
     "cloudinary": "^1.18.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
     "mysql2": "^2.1.0",
