@@ -12,6 +12,7 @@ const getNumberOfContributions = require("../controllers/projects/get-dev-number
 
 const router = express.Router();
 
+router.get("/projects/contributed/number/:userId", getNumberOfContributions);
 router.get("/projects/contributed/:userId", getContributedProjects);
 router.get("/projects/contributed/number/:userId", getNumberOfContributions);
 router.get("/projects/followed/:userId", getFollowedProjects);
