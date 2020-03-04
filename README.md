@@ -10,3 +10,7 @@ https://medium.com/@chloechong.us/how-to-deploy-a-create-react-app-with-an-expre
 
 https://stackoverflow.com/questions/40119964/how-to-set-environment-variables-on-heroku-for-nodes-app-and-connect-to-the-post
 https://www.freecodecamp.org/news/how-to-deploy-a-node-application-and-database-to-heroku/
+https://bezkoder.com/deploy-node-js-app-heroku-cleardb-mysql/
+https://medium.com/@federicojordn/simplertapp-deploy-de-una-app-en-node-js-a-heroku-b367df39f185
+
+SHOW VARIABLES LIKE "%version%";
