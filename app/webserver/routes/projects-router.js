@@ -8,9 +8,11 @@ const getOrgProjects = require("../controllers/projects/get-org-projects-control
 const getFollowedProjects = require("../controllers/projects/get-dev-followed-projects-controller");
 const getContributedProjects = require("../controllers/projects/get-dev-contributed-projects-controller");
 const getAvgRatings = require("../controllers/projects/get-dev-avg-doc-rating-controller");
+const getNumberOfContributions = require("../controllers");
 
 const router = express.Router();
 
+router.get("/projects/contributed/number/:userId", getNumberOfContributions);
 router.get("/projects/contributed/:userId", getContributedProjects);
 router.get("/projects/followed/:userId", getFollowedProjects);
 router.get("/projects/ratings/:userId", getAvgRatings);
